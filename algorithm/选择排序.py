@@ -2,10 +2,15 @@ def sort(nums):
     length = len(nums)
     count = 0
     for i in range(length):
-        for j in range(i, length - 1):
+        minIndex = i
+        for j in range(i + 1, length):
             count += 1
-            if nums[j] > nums[j + 1]:
-                nums[j], nums[j + 1] = nums[j + 1], nums[j]
+            if nums[minIndex] > nums[j]:
+                minIndex = j
+
+        if nums[i] > nums[minIndex]:
+            nums[i], nums[minIndex] = nums[minIndex], nums[i]
+        print(nums)
 
     print(nums)
     print(f'一共运行了{count}次')
