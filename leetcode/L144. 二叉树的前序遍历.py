@@ -30,21 +30,16 @@ class Solution:
         return result
 
     def preorderTraversal2(self, root: Optional[TreeNode]) -> List[int]:
-        result = []
+        result = list()
         stack = deque()
-        stack.append(root)
-        node = stack.pop()
-        while node:
-            result.append(node.val)
-            left = node.left
-            right = node.right
-            if right:
-                stack.append(right)
-            if left:
-                stack.append(left)
-            if not stack:
-                break
-            node = stack.pop()
+        while root or stack:
+            while root:
+                result.append(root.val)
+                stack.append(root)
+                root = root.left
+
+            root = stack.pop()
+            root = root.right
         return result
 
     def morris(self, root: Optional[TreeNode]) -> List[int]:
@@ -56,7 +51,7 @@ class Solution:
         while cur:
             mostRight = cur.left
             if mostRight:
-                while mostRight.right and mostRight!=cur:
+                while mostRight.right and mostRight != cur:
                     mostRight = mostRight.right
                 if mostRight.right == None:
                     mostRight.right = cur
@@ -89,6 +84,6 @@ if __name__ == "__main__":
     right1.left = left21
     right1.right = right22
     # Solution().preorderTraversal(root)
-    # result = Solution().preorderTraversal2(root)
-    result = Solution().morris(root)
+    result = Solution().preorderTraversal2(root)
+    # result = Solution().morris(root)
     print(result)
